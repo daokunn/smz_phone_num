@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>实名短信核查</title>
+  <style>
+    body {
+      font-family: "Helvetica Neue", sans-serif;
+      background: #f5f7fa;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .container {
+      background: #ffffff;
+      padding: 30px 40px;
+      border-radius: 12px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+      max-width: 400px;
+      width: 100%;
+      position: relative;
+    }
+
+    h2 {
+      text-align: center;
+      color: #333;
+      margin-bottom: 12px;
+    }
+
+    .privacy {
+      text-align: center;
+      font-size: 13px;
+      color: #666;
+      margin-bottom: 20px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 8px;
+      color: #555;
+      font-weight: bold;
+    }
+
+    select {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 20px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 16px;
+    }
+
+    button {
+      width: 100%;
+      padding: 12px;
+      background-color: #0078d4;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #005fa3;
+    }
+
+    .footer {
+      margin-top: 20px;
+      text-align: center;
+      font-size: 12px;
+      color: #888;
+    }
+
+    .author {
+      position: absolute;
+      bottom: 10px;
+      right: 16px;
+      font-size: 11px;
+      color: #aaa;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>实名短信核查</h2>
+    <div class="privacy">本网页不收集或保存任何您的信息。</div>
+
+    <label for="province">选择省份</label>
+    <select id="province">
+      <option value="江西">江西</option>
+      <option value="湖南">湖南</option>
+      <option value="海南">海南</option>
+      <option value="浙江">浙江</option>
+      <option value="广东">广东</option>
+    </select>
+
+    <label for="carrier">选择运营商</label>
+    <select id="carrier">
+      <option value="移动">移动</option>
+      <option value="联通">联通</option>
+      <option value="电信">电信</option>
+      <option value="广电">广电</option>
+    </select>
+
+    <button onclick="sendSMS()">点击发送短信</button>
+
+    <div class="footer">提示：短信内容和号码将自动填写，请确认后手动发送。</div>
+    <div class="author">作者：daokun</div>
+  </div>
+
+  <script>
+    const smsMap = {
+      "江西_移动": { number: "10086", body: "yhxxcx" },
+      "江西_电信": { number: "10001", body: "107" },
+      "江西_联通": { number: "10010", body: "205" },
+      "湖南_电信": { number: "10001", body: "504" },
+      "海南_电信": { number: "10001", body: "504" },
+      "广东_电信": { number: "10001", body: "708" }
+    };
+
+    function sendSMS() {
+      const province = document.getElementById("province").value;
+      const carrier = document.getElementById("carrier").value;
+      const key = `${province}_${carrier}`;
+
+      // 特殊跳转：浙江电信
+      if (province === "浙江" && carrier === "电信") {
+        window.location.href = "zhejiang_dx.html";
+        return;
+      }
+
+      // 特殊跳转：广电全国统一
+      if (carrier === "广电") {
+        window.location.href = "guangdian.html";
+        return;
+      }
+
+      const sms = smsMap[key];
+      if (sms) {
+        window.location.href = `sms:${sms.number}?body=${encodeURIComponent(sms.body)}`;
+      } else {
+        alert("暂未收录该地区运营商的指令，请联系客服或手动查询。");
+      }
+    }
+  </script>
+</body>
+</html>

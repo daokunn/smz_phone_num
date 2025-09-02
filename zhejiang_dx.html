@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>浙江电信实名短信</title>
+  <style>
+    body {
+      font-family: "Helvetica Neue", sans-serif;
+      background: #f5f7fa;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .container {
+      background: #ffffff;
+      padding: 30px 40px;
+      border-radius: 12px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+      max-width: 400px;
+      width: 100%;
+      position: relative;
+    }
+
+    h2 {
+      text-align: center;
+      color: #333;
+      margin-bottom: 12px;
+    }
+
+    .privacy {
+      text-align: center;
+      font-size: 13px;
+      color: #666;
+      margin-bottom: 20px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 8px;
+      color: #555;
+      font-weight: bold;
+    }
+
+    input {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 20px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 16px;
+    }
+
+    button {
+      width: 100%;
+      padding: 12px;
+      background-color: #0078d4;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #005fa3;
+    }
+
+    .footer {
+      margin-top: 20px;
+      text-align: center;
+      font-size: 12px;
+      color: #888;
+    }
+
+    .author {
+      position: absolute;
+      bottom: 10px;
+      right: 16px;
+      font-size: 11px;
+      color: #aaa;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>浙江电信实名短信</h2>
+    <div class="privacy">本网页不收集或保存任何您的信息。</div>
+
+    <label for="name">机主姓名</label>
+    <input type="text" id="name" placeholder="请输入姓名">
+
+    <label for="id">身份证号码</label>
+    <input type="text" id="id" placeholder="请输入身份证号码">
+
+    <button onclick="sendZhejiangSMS()">点击发送短信</button>
+
+    <button onclick="goBack()" style="margin-top:10px; background-color:#ccc; color:#333;">
+  返回主页面
+</button>
+
+
+    <div class="footer">提示：短信内容将自动填写，请确认后手动发送。</div>
+    <div class="author">作者：daokun</div>
+  </div>
+
+  <script>
+    function sendZhejiangSMS() {
+      const name = document.getElementById("name").value.trim();
+      const id = document.getElementById("id").value.trim();
+
+      if (!name || !id) {
+        alert("请填写完整信息");
+        return;
+      }
+
+      const body = `504#${name}#${id}`;
+      window.location.href = `sms:10001?body=${encodeURIComponent(body)}`;
+    }
+    function goBack() {
+  window.location.href = "index.html";
+}
+
+  </script>
+</body>
+</html>
